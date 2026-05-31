@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9ff;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f2f3fb;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c2c6d4;
+            border-radius: 10px;
+        }
+        .detail-panel-transition {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-container": "#d3e2ed",
+                      "on-secondary-fixed": "#0f1d25",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed": "#001b3d",
+                      "inverse-primary": "#a9c7ff",
+                      "on-primary-container": "#c8daff",
+                      "error-container": "#ffdad6",
+                      "surface": "#f9f9ff",
+                      "on-secondary-container": "#56656e",
+                      "surface-container-highest": "#e1e2ea",
+                      "on-primary-fixed-variant": "#00468c",
+                      "on-error-container": "#93000a",
+                      "surface-dim": "#d8dae2",
+                      "on-tertiary-fixed": "#131e17",
+                      "on-primary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "inverse-on-surface": "#eff0f8",
+                      "surface-container": "#ecedf6",
+                      "on-secondary-fixed-variant": "#3b4951",
+                      "tertiary-fixed-dim": "#bdcabe",
+                      "surface-variant": "#e1e2ea",
+                      "background": "#f9f9ff",
+                      "primary-container": "#005eb8",
+                      "primary-fixed": "#d6e3ff",
+                      "surface-container-low": "#f2f3fb",
+                      "outline-variant": "#c2c6d4",
+                      "secondary": "#526069",
+                      "on-surface-variant": "#424752",
+                      "tertiary-fixed": "#d9e6da",
+                      "surface-bright": "#f9f9ff",
+                      "tertiary-container": "#566259",
+                      "outline": "#727783",
+                      "inverse-surface": "#2e3037",
+                      "tertiary": "#3f4a42",
+                      "on-surface": "#191c21",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed": "#d6e5ef",
+                      "on-tertiary-fixed-variant": "#3e4a41",
+                      "primary": "#00478d",
+                      "on-tertiary-container": "#d0ddd1",
+                      "surface-container-high": "#e7e8f0",
+                      "primary-fixed-dim": "#a9c7ff",
+                      "secondary-fixed-dim": "#bac9d3",
+                      "on-error": "#ffffff",
+                      "surface-tint": "#005db6",
+                      "on-tertiary": "#ffffff",
+                      "on-background": "#191c21"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "stack-lg": "32px",
+                      "unit": "4px",
+                      "margin-mobile": "16px",
+                      "container-max-width": "1440px",
+                      "stack-sm": "8px",
+                      "margin-desktop": "40px",
+                      "stack-md": "16px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "headline-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "label-md": ["Inter"],
+                      "label-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "code-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "code-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max-width mx-auto h-16">
+<div class="flex items-center gap-stack-md">
+<span class="font-headline-sm text-headline-sm font-semibold text-primary dark:text-primary-fixed">SAGDI | MUNICIPALIDAD PROVINCIAL DE YAUYOS</span>
+</div>
+<nav class="hidden md:flex items-center gap-8 h-full">
+<a class="font-label-lg text-label-lg text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-colors h-full flex items-center" href="#">Dashboard</a>
+<a class="font-label-lg text-label-lg text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-colors h-full flex items-center" href="#">Mesa de Partes</a>
+<a class="font-label-lg text-label-lg text-primary dark:text-primary-fixed border-b-2 border-primary pb-1 h-full flex items-center" href="#">Trámites</a>
+<a class="font-label-lg text-label-lg text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-colors h-full flex items-center" href="#">Arquitectura</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-secondary-container transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<div class="flex items-center gap-2 pl-2">
+<img alt="User profile avatar" class="w-8 h-8 rounded-full object-cover" data-alt="A professional headshot of a municipal officer in formal attire, captured with soft office lighting. The image maintains a clean, corporate aesthetic with a neutral, slightly blurred background of a modern government building interior. The color palette is composed of soft whites, greys, and muted blues to align with the institutional design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCq0VsHe-QmXzb15fBsPywniI9YAHn1zdBVDYOjpMVh2NPuMQRXj-MFMSt-kVd0JJiTDw9nFgW-pLSLMq0AqqtF2ZB8D1oSiOWz2DLJAf0qd40C30d1CcsqpjKi7wvBohUcRkvoLBf-a3MmpKXFoRe6z_kfEXiox6hLCjuXorCQncoOSeoq-kPssYrnDmUnN4QmyArDlBZ1U7ZLLjsx4KXPFIr4O6qB8YZom5pzCYKidqN_Rfe54zgAcAWYVsgw8E7FkFZwmLxDjVw"/>
+<span class="material-symbols-outlined text-on-surface-variant">account_circle</span>
+</div>
+</div>
+</div>
+</header>
+<div class="flex max-w-[1440px] mx-auto min-h-[calc(100vh-64px)]">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col h-full py-stack-md px-4 gap-stack-sm bg-surface-container-low border-r border-outline-variant w-64">
+<div class="px-2 mb-6">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">SAGDI</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Gestión Documental</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">inbox</span>
+<span class="font-label-md text-label-md">Mesa de Partes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-secondary-container text-on-secondary-container rounded-lg transition-all scale-95 duration-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="font-label-md text-label-md font-semibold">Trámites</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-label-md text-label-md">Arquitectura</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1 pt-4 border-t border-outline-variant">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Configuración</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Ayuda</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-hidden flex flex-col">
+<!-- Header & Filters -->
+<section class="p-stack-md lg:p-margin-desktop bg-surface border-b border-outline-variant">
+<div class="flex flex-col gap-6">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary">Gestión de Trámites</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Administración y seguimiento de expedientes institucionales.</p>
+</div>
+<!-- Filters Bar -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+<div class="md:col-span-5">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1">Búsqueda de Trámite</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 border border-outline-variant bg-surface-container-lowest rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-sm text-body-sm" placeholder="ID o Nombre del Ciudadano" type="text"/>
+</div>
+</div>
+<div class="md:col-span-3">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1">Área Destino</label>
+<select class="w-full px-4 py-2 border border-outline-variant bg-surface-container-lowest rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all font-body-sm text-body-sm">
+<option>Todas las áreas</option>
+<option>Administración</option>
+<option>Obras Públicas</option>
+<option>Rentas</option>
+<option>Secretaría General</option>
+</select>
+</div>
+<div class="md:col-span-3">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1">Prioridad</label>
+<select class="w-full px-4 py-2 border border-outline-variant bg-surface-container-lowest rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all font-body-sm text-body-sm">
+<option>Cualquier prioridad</option>
+<option>Alta</option>
+<option>Media</option>
+<option>Baja</option>
+</select>
+</div>
+<div class="md:col-span-1 flex justify-end">
+<button class="bg-secondary-container text-primary p-2 rounded-lg hover:bg-primary-container hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Table & Detail View Split -->
+<div class="flex-1 flex overflow-hidden relative">
+<!-- Table Container -->
+<div class="flex-1 overflow-auto custom-scrollbar bg-surface-container-lowest">
+<table class="w-full border-collapse text-left">
+<thead class="sticky top-0 bg-surface-container-high z-10 border-b border-outline-variant">
+<tr>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">ID</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Ciudadano / DNI</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Tipo</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Área</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Prioridad ML</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Estado</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Fecha</th>
+<th class="px-6 py-4"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors group" onclick="toggleDetails(1)">
+<td class="px-6 py-4 font-code-sm text-code-sm text-primary font-mono">#2024-00421</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg">Carlos Mendoza Ruiz</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">45829103</span>
+</div>
+</td>
+<td class="px-6 py-4 font-body-sm text-body-sm">Licencia de Funcionamiento</td>
+<td class="px-6 py-4 font-body-sm text-body-sm">Administración</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-error-container text-on-error-container">ALTA</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-secondary-container text-on-secondary-container">PENDIENTE</span>
+</td>
+<td class="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant">12/10/2024</td>
+<td class="px-6 py-4 text-right">
+<button class="p-1 rounded-full hover:bg-surface-container-highest transition-colors opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low cursor-pointer transition-colors group" onclick="toggleDetails(2)">
+<td class="px-6 py-4 font-code-sm text-code-sm text-primary font-mono">#2024-00418</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg">Elena Vasquez Soto</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">71023948</span>
+</div>
+</td>
+<td class="px-6 py-4 font-body-sm text-body-sm">Certificado Catastral</td>
+<td class="px-6 py-4 font-body-sm text-body-sm">Arquitectura</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-tertiary-fixed text-on-tertiary-fixed-variant">MEDIA</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#E8F5E9] text-[#2E7D32]">APROBADO</span>
+</td>
+<td class="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant">11/10/2024</td>
+<td class="px-6 py-4 text-right">
+<button class="p-1 rounded-full hover:bg-surface-container-highest transition-colors opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 (Active) -->
+<tr class="bg-secondary-container/20 hover:bg-secondary-container/30 cursor-pointer transition-colors group border-l-4 border-primary" onclick="toggleDetails(3)">
+<td class="px-6 py-4 font-code-sm text-code-sm text-primary font-mono">#2024-00415</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg">Roberto Garcia L.</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">10293847</span>
+</div>
+</td>
+<td class="px-6 py-4 font-body-sm text-body-sm">Constancia de Posesión</td>
+<td class="px-6 py-4 font-body-sm text-body-sm">Rentas</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-secondary-fixed text-on-secondary-fixed-variant">BAJA</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-error-container text-on-error-container">OBSERVADO</span>
+</td>
+<td class="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant">10/10/2024</td>
+<td class="px-6 py-4 text-right">
+<button class="p-1 rounded-full hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- More Zebra Rows -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low cursor-pointer transition-colors">
+<td class="px-6 py-4 font-code-sm text-code-sm text-primary font-mono">#2024-00412</td>
+<td class="px-6 py-4">
+<div class="flex flex-col"><span class="font-label-lg text-label-lg">Maria Lopez F.</span><span class="font-body-sm text-body-sm text-on-surface-variant">42331109</span></div>
+</td>
+<td class="px-6 py-4 font-body-sm text-body-sm">Subdivisión de Lote</td>
+<td class="px-6 py-4 font-body-sm text-body-sm">Obras Públicas</td>
+<td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-error-container text-on-error-container">ALTA</span></td>
+<td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-secondary-container text-on-secondary-container">RECIBIDO</span></td>
+<td class="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant">09/10/2024</td>
+<td class="px-6 py-4 text-right"></td>
+</tr>
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low cursor-pointer transition-colors">
+<td class="px-6 py-4 font-code-sm text-code-sm text-primary font-mono">#2024-00405</td>
+<td class="px-6 py-4">
+<div class="flex flex-col"><span class="font-label-lg text-label-lg">Jorge Perez T.</span><span class="font-body-sm text-body-sm text-on-surface-variant">09876543</span></div>
+</td>
+<td class="px-6 py-4 font-body-sm text-body-sm">Duplicado de DNI</td>
+<td class="px-6 py-4 font-body-sm text-body-sm">Secretaría General</td>
+<td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-secondary-fixed text-on-secondary-fixed-variant">BAJA</span></td>
+<td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#E8F5E9] text-[#2E7D32]">FINALIZADO</span></td>
+<td class="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant">08/10/2024</td>
+<td class="px-6 py-4 text-right"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Detail Panel (Bento-style items) -->
+<aside class="w-full lg:w-[450px] bg-surface-container-lowest border-l border-outline-variant p-6 overflow-y-auto hidden lg:block detail-panel-transition shadow-lg" id="detailPanel">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Detalle del Trámite</h3>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors" onclick="closeDetails()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="space-y-6">
+<!-- Bento Cell: Status and Action -->
+<div class="bg-surface-container p-4 rounded-xl border border-outline-variant">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant block uppercase mb-1">Estado Actual</span>
+<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-error-container text-on-error-container">OBSERVADO</span>
+</div>
+<div class="relative inline-block text-left">
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-lg text-label-lg flex items-center gap-2 hover:bg-primary-container transition-all">
+                                        Actualizar Estado
+                                        <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">"Se requiere adjuntar copia legible de planos estructurales visados por el colegio de arquitectos."</p>
+</div>
+<!-- Bento Cell: Details -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant block uppercase mb-1">Folios</span>
+<span class="font-headline-sm text-headline-sm text-primary">24</span>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant block uppercase mb-1">Días en Sistema</span>
+<span class="font-headline-sm text-headline-sm text-primary">12</span>
+</div>
+</div>
+<!-- Bento Cell: Gateway History / History Alerts -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="bg-surface-container-high px-4 py-2 border-b border-outline-variant">
+<span class="font-label-lg text-label-lg font-bold">Historial de Alertas</span>
+</div>
+<div class="p-4 space-y-4">
+<div class="flex gap-4 relative">
+<div class="w-0.5 bg-outline-variant absolute left-[11px] top-6 bottom-0"></div>
+<div class="z-10 bg-error w-6 h-6 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[14px]">warning</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Observación técnica emitida</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Arq. Raul Jimenez - Hace 2 horas</p>
+</div>
+</div>
+<div class="flex gap-4 relative">
+<div class="w-0.5 bg-outline-variant absolute left-[11px] top-6 bottom-0"></div>
+<div class="z-10 bg-primary w-6 h-6 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[14px]">send</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Trámite derivado a Arquitectura</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Mesa de Partes - 10/10/2024</p>
+</div>
+</div>
+<div class="flex gap-4 relative">
+<div class="z-10 bg-[#2E7D32] w-6 h-6 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[14px]">check</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Ingreso de expediente #2024-00415</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Mesa de Partes - 10/10/2024</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="grid grid-cols-1 gap-2 pt-4">
+<button class="w-full flex items-center justify-center gap-2 py-3 border border-outline text-on-surface-variant rounded-lg hover:bg-surface-container-high transition-colors font-label-lg">
+<span class="material-symbols-outlined">download</span>
+                                Descargar Expediente Completo
+                            </button>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-desktop py-stack-md max-w-container-max-width mx-auto gap-4">
+<div class="flex flex-col md:flex-row items-center gap-4">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">SAGDI</span>
+<p class="font-label-md text-label-md text-secondary">© 2024 Municipalidad Provincial de Yauyos - Sistema Automatizado de Gestión Documental Institucional</p>
+</div>
+<div class="flex items-center gap-6">
+<a class="font-label-md text-label-md text-secondary hover:text-primary transition-colors" href="#">Privacidad</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary transition-colors" href="#">Términos de Uso</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary transition-colors" href="#">Soporte Técnico</a>
+</div>
+</div>
+</footer>
+<script>
+        function toggleDetails(rowId) {
+            const panel = document.getElementById('detailPanel');
+            panel.classList.remove('hidden');
+            // Mock state change: for Row 3 highlight
+            console.log("Loading details for: " + rowId);
+        }
+
+        function closeDetails() {
+            const panel = document.getElementById('detailPanel');
+            panel.classList.add('hidden');
+        }
+
+        // Atmospheric micro-interaction for rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('click', function() {
+                document.querySelectorAll('tbody tr').forEach(r => r.classList.remove('bg-secondary-container/20', 'border-l-4', 'border-primary'));
+                this.classList.add('bg-secondary-container/20', 'border-l-4', 'border-primary');
+            });
+        });
+    </script>
+</body></html>
