@@ -28,7 +28,7 @@ export default function Tramites({
       <div style={{ display: "flex", gap: 12, marginBottom: 20, flexWrap: "wrap" }}>
         <input
           style={{ ...inputStyle, maxWidth: 260 }}
-          placeholder="🔍 Buscar por ID, nombre o DNI..."
+          placeholder="Buscar por ID, nombre o DNI"
           value={searchQ}
           onChange={(e) => setSearchQ(e.target.value)}
         />
@@ -46,16 +46,16 @@ export default function Tramites({
       <div style={{ ...cardStyle, padding: 0, overflow: "hidden" }}>
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
-            <tr style={{ background: COLORS.navyLight }}>
+            <tr style={{ background: COLORS.surfaceLight }}>
               {[
                 "ID",
                 "Ciudadano / DNI",
-                "Tipo de Trámite",
+                "Tipo de trámite",
                 "Área",
-                "Prioridad ML",
+                "Prioridad",
                 "Estado",
                 "Fecha",
-                "Actualizar Estado",
+                "Actualizar estado",
               ].map((h) => (
                 <th key={h} style={{ padding: "12px 16px", textAlign: "left", fontSize: 11, color: COLORS.muted, fontWeight: 700, letterSpacing: 0.5, borderBottom: `1px solid ${COLORS.border}` }}>
                   {h.toUpperCase()}
@@ -68,13 +68,13 @@ export default function Tramites({
               <tr
                 key={t.id}
                 className="row-hover"
-                style={{ borderBottom: `1px solid ${COLORS.border}11`, background: selectedTramite?.id === t.id ? "#1E90FF11" : "transparent" }}
+                style={{ borderBottom: `1px solid ${COLORS.border}11`, background: selectedTramite?.id === t.id ? `${COLORS.accent}11` : "transparent" }}
                 onClick={() => setSelectedTramite(t.id === selectedTramite?.id ? null : t)}
               >
                 <td style={{ padding: "12px 16px", fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: COLORS.accent, fontWeight: 700 }}>{t.id}</td>
                 <td style={{ padding: "12px 16px" }}>
                   <div style={{ fontSize: 13, fontWeight: 600 }}>{t.ciudadano}</div>
-                  <div style={{ fontSize: 11, color: COLORS.muted }}>DNI: {t.dni}</div>
+                  <div style={{ fontSize: 11, color: COLORS.muted }}>DNI {t.dni}</div>
                 </td>
                 <td style={{ padding: "12px 16px", fontSize: 12, maxWidth: 180 }}>
                   <div style={{ color: COLORS.text }}>{t.tipo}</div>
@@ -103,21 +103,21 @@ export default function Tramites({
 
       {selectedTramite && (
         <div style={{ ...cardStyle, marginTop: 20, borderColor: COLORS.accent, animation: "fadeUp 0.3s ease" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 16 }}>
-            <div style={{ fontWeight: 700, fontSize: 15 }}>📄 Detalle del Trámite — {selectedTramite.id}</div>
-            <button onClick={() => setSelectedTramite(null)} style={{ background: "none", border: "none", color: COLORS.muted, cursor: "pointer", fontSize: 18 }}>✕</button>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16, gap: 12 }}>
+            <div style={{ fontWeight: 700, fontSize: 15 }}>Detalle del trámite — {selectedTramite.id}</div>
+            <button onClick={() => setSelectedTramite(null)} style={{ background: "none", border: "none", color: COLORS.muted, cursor: "pointer", fontSize: 18 }}>×</button>
           </div>
           <div style={{ marginBottom: 12 }}>
-            <div style={{ fontSize: 11, color: COLORS.muted, fontWeight: 600, marginBottom: 4 }}>DESCRIPCIÓN ORIGINAL</div>
-            <div style={{ fontSize: 13, color: COLORS.text, background: COLORS.navyLight, borderRadius: 8, padding: "10px 14px" }}>{selectedTramite.descripcion}</div>
+            <div style={{ fontSize: 11, color: COLORS.muted, fontWeight: 600, marginBottom: 4 }}>Descripción original</div>
+            <div style={{ fontSize: 13, color: COLORS.text, background: COLORS.surfaceLight, borderRadius: 8, padding: "10px 14px" }}>{selectedTramite.descripcion}</div>
           </div>
           <div>
-            <div style={{ fontSize: 11, color: COLORS.muted, fontWeight: 600, marginBottom: 8 }}>HISTORIAL DE ALERTAS ENVIADAS (GATEWAY)</div>
+            <div style={{ fontSize: 11, color: COLORS.muted, fontWeight: 600, marginBottom: 8 }}>Historial de alertas</div>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               {selectedTramite.alertas.map((a, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                  <span style={{ fontSize: 11, background: "#1E90FF22", border: "1px solid #1E90FF44", color: COLORS.accent, borderRadius: 6, padding: "3px 10px" }}>
-                    📬 {a}
+                  <span style={{ fontSize: 11, background: `${COLORS.accent}18`, border: `1px solid ${COLORS.accent}44`, color: COLORS.accent, borderRadius: 6, padding: "3px 10px" }}>
+                    {a}
                   </span>
                   {i < selectedTramite.alertas.length - 1 && <span style={{ color: COLORS.border }}>→</span>}
                 </div>
